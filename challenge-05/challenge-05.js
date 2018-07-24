@@ -81,7 +81,7 @@ function book(name) {
 Usando a função criada acima, imprima o objeto com todos os livros.
 */
 // ?
-
+Hello
 /*
 Ainda com a função acima, imprima a quantidade de páginas de um livro qualquer,
 usando a frase:
