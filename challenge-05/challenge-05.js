@@ -23,11 +23,8 @@ no primeiro parâmetro. O índice usado para retornar o valor, deve ser o númer
 segundo parâmetro.
 */
 // ?
-function getAtIndex(arr, i) {
-    if (arr.length < i) {
-    return arr[i];
-    }
-    return "Not possible, index out of array";
+function getAtIndex(arg, i) {
+    return arg[i];
 }
 /*
 Declare uma variável que recebe um array com 5 valores, de tipos diferentes.
@@ -71,7 +68,7 @@ function book(name) {
             quantidadePaginas: 200,
             autor: "Euzinha",
             editora: "Intrinseca"
-        };
+        }
     };
 
     return "que";
