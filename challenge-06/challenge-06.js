@@ -5,6 +5,8 @@ Declare uma variável chamada `championship` que receberá o nome do campeonato,
 e imprima o nome desse campeonato no console.
 */
 // ?
+var championship = 'Brasileirão';
+console.log(championship);
 
 /*
 Declare uma variável chamada `teams`, que receberá um array com 5 elementos.
@@ -13,6 +15,8 @@ estar na ordem em que eles aparecem na tabela no momento da solução desse
 desafio.
 */
 // ?
+
+var teams = ['Flamengo', 'São Paulo', 'Internacional', 'Cruzeiro', 'Palmeiras'];
 
 console.log( 'Times que estão participando do campeonato:', teams );
 
@@ -34,17 +38,33 @@ Crie uma função chamada `showTeamPosition` com as seguintes características:
 */
 // ?
 
+function showTeamPosition(pos){
+    if (pos-1 < teams.length) {
+        return "O time que está em " + pos + "o lugar é o " + teams[pos-1] + ".";
+    }
+    return "Não temos a informação do time que está nessa posição.";
+}
+
 /*
 Escolha 4 times do campeonato selecionado e mostre a posição dele, usando a
 função acima. Entre esses 4, adicione 1 que não esteja entre os 5 primeiros.
 */
 // ?
 
+for (var j = 2; j < 7; j++) {
+    console.log(showTeamPosition(j));
+}
+
 /*
 Mostre os números de 20 a 30 no console (inclusive o 30), usando a estrutura de
 repetição "while".
 */
 // ?
+var i = 20;
+while (i < 31) {
+    console.log(i);
+    i++;
+}
 
 /*
 Crie uma função chamada `convertToHex`, com as seguintes características:
@@ -60,7 +80,34 @@ Crie uma função chamada `convertToHex`, com as seguintes características:
 */
 // ?
 
+function convertToHex(color){
+    var hexColor;
+    switch (color) {
+        case 'red': 
+            hexColor = "#000045";
+            break;
+        case 'green': 
+            hexColor = "#004545";
+            break;
+        case 'blue': 
+            hexColor = "#454545";
+            break;
+        default: 
+            return  "Não temos o equivalente hexadecimal para " + color;
+        
+    }
+    return "O hexadecimal para a cor " + color + " é " + hexColor + ".";
+}
 /*
 Tente mostrar o hexadecimal de 8 cores diferentes usando a função criada acima.
 */
 // ?
+
+console.log(convertToHex('red'));
+console.log(convertToHex('green'));
+console.log(convertToHex('blue'));
+console.log(convertToHex('yellow'));
+console.log(convertToHex('orange'));
+console.log(convertToHex('vermelho'));
+console.log(convertToHex('verde'));
+console.log(convertToHex('azul'));
