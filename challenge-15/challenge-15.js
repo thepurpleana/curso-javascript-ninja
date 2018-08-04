@@ -26,22 +26,20 @@ Crie um arquivo chamado index.html e adicione esse script ao HTML.
   // ?
   function Person(name, lastName, age) {
 
-    var name, lastName, age;
-
     this.name = name; 
     this.lastName = lastName;
     this.age = age;
 
-    var getFullName = function() {
+    this.getFullName = function getFullName() {
       return this.name + " " + this.lastName;
     };
 
-    var getAge = function() {
+    this.getAge = function getAge() {
       return this.age;
     };
 
-    var addAge = function(years) {
-      this.age += years;
+    this.addAge = function addAge() {
+      this.age += arguments[0];
       return this;
     };
 
@@ -92,7 +90,7 @@ Crie um arquivo chamado index.html e adicione esse script ao HTML.
   // ?
 
   family.forEach(function(person){
-    person.age += rand
+    person.age += Math.round(Math.random() * 10);
     console.log(person.name + " " + person.lastName + " agora tem " + person.age + " anos.");
   });
 
