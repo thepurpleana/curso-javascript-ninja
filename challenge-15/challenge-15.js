@@ -90,7 +90,7 @@ Crie um arquivo chamado index.html e adicione esse script ao HTML.
   // ?
 
   family.forEach(function(person){
-    person.age += Math.round(Math.random() * 10);
+    person.addAge(Math.round(Math.random() * 10));
     console.log(person.name + " " + person.lastName + " agora tem " + person.age + " anos.");
   });
 
