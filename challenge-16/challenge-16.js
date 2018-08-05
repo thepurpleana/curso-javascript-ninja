@@ -5,71 +5,119 @@
 */
 
 (function (){
-    'use strict';
+        'use strict';
 
-/*
-Declare uma variável chamada `name` que receba seu primeiro nome.
-Mostre no console todas as letras do seu nome separadas, com a frase:
-- "[LETRA] é a [POSIÇÃO]ª letra do meu nome."
-Ex: no caso do nome ser "Fernando", deve mostrar as frases:
-- "F é a 1ª letra do meu nome."
-- "e é a 2ª letra do meu nome."
-E assim por diante, até a última.
-*/
-console.log( 'As letras do seu nome:' );
-// ?
+    /*
+    Declare uma variável chamada `name` que receba seu primeiro nome.
+    Mostre no console todas as letras do seu nome separadas, com a frase:
+    - "[LETRA] é a [POSIÇÃO]ª letra do meu nome."
+    Ex: no caso do nome ser "Fernando", deve mostrar as frases:
+    - "F é a 1ª letra do meu nome."
+    - "e é a 2ª letra do meu nome."
+    E assim por diante, até a última.
+    */
+    console.log( 'As letras do seu nome:' );
+    // ?
+    var name = 'Ana'; 
 
-/*
-- Declare uma variável chamada `fullName`, que receba seu nome completo,
-escrito no formato de slug (caixa baixa e palavras separadas por um traço).
-Ex: o nome "Fernando Daciuk" ficaria "fernando-daciuk"
-- Faça a primeira letra de cada nome ficar em caixa alta, e troque o traço
-por um espaço.
-- Detalhe: o código que você escrever abaixo deve funcionar para qualquer
-nome, então fique à vontade para usar as artimanhas que já viu até agora no
-curso para fazer isso funcionar corretamente :)
-- Mostre no console o nome no formato slug, e o resultado final. Use um
-console.log para cada formato.
-*/
-console.log( '\nNome convertido à partir de um slug:' );
-// ?
+    for (var i = 0; i < name.length; i++) {
+        console.log(name.charAt(i).toUpperCase() + ' é a ' + (i+1) + 'a letra do seu nome.');
+    }
 
-/*
-- Crie um array com 5 nomes. Reduza esses nomes a uma única string, separando
-cada nome por vírgula. Entre o penúltimo e o último nome, o separador deve
-ser um "e". No final, concatene com a frase: " são meus amigos.".
-O resultado final deve ficar mais ou menos assim:
-- "João, Maria, Roberto, Pedro e Marcos são meus amigos."
-- Detalhe: o código abaixo deve funcionar com um array de qualquer tamanho.
-5 nomes foi somente uma sugestão ;)
-*/
-console.log( '\nMeus amigos:' );
-// ?
+    /*
+    - Declare uma variável chamada `fullName`, que receba seu nome completo,
+    escrito no formato de slug (caixa baixa e palavras separadas por um traço).
+    Ex: o nome "Fernando Daciuk" ficaria "fernando-daciuk"
+    - Faça a primeira letra de cada nome ficar em caixa alta, e troque o traço
+    por um espaço.
+    - Detalhe: o código que você escrever abaixo deve funcionar para qualquer
+    nome, então fique à vontade para usar as artimanhas que já viu até agora no
+    curso para fazer isso funcionar corretamente :)
+    - Mostre no console o nome no formato slug, e o resultado final. Use um
+    console.log para cada formato.
+    */
+    console.log( '\nNome convertido à partir de um slug:' );
+    // ?
 
-/*
-Usando o replace(), faça a string "Roberto" virar "Roberta".
-Mostre o resultado no console.
-*/
-console.log( '\nEra "Roberto", agora é:' );
-// ?
+    var fullName = "ana-carolina-barreto"; 
 
-/*
-Mostre no console a parte "nando" da string "Fernando". Use o método que
-faz a busca do final para o início da string.
-*/
-console.log( '\nParte de uma string:' );
-// ?
+    console.log(fullName);
 
-/*
-Declare uma variável chamada `myName`, que receba o seu primeiro nome,
-escrito de forma natural.
-Mostre no console esse nome, mas com as letras intercalando entre maiúsculas
-e minúsculas.
-- Detalhe: o código abaixo deve funcionar da mesma forma para qualquer nome,
-de qualquer tamanho, escrito de qualquer forma.
-Ex.: Nomes que deveriam funcionar: "Fernando", "RoBertO", "gabriEla", etc.
-*/
-console.log( '\nNome com letras intercaladas entre caixa alta e baixa:' );
-// ?
+    var rewritten = fullName.split('-').map(function(item){
+            return item.charAt(0).toUpperCase() + item.slice(1);
+            }).join(' ');
+    
+    console.log(rewritten);
+
+    /*
+    - Crie um array com 5 nomes. Reduza esses nomes a uma única string, separando
+    cada nome por vírgula. Entre o penúltimo e o último nome, o separador deve
+    ser um "e". No final, concatene com a frase: " são meus amigos.".
+    O resultado final deve ficar mais ou menos assim:
+    - "João, Maria, Roberto, Pedro e Marcos são meus amigos."
+    - Detalhe: o código abaixo deve funcionar com um array de qualquer tamanho.
+    5 nomes foi somente uma sugestão ;)
+    */
+    console.log( '\nMeus amigos:' );
+    // ?
+    var myFriends = ['João', 'Maria', 'Roberto', 'Pedro', 'Marcos', 'João'];
+    console.log(myFriends);
+
+    var friendsString = myFriends.reduce(function(accumulator, current, index, array) {
+        if (index == array.length - 1) {
+            return accumulator + ' e ' + current + ' são meus amigos.'; 
+        }
+        return accumulator + ', ' + current;
+    });
+
+    console.log(friendsString)
+
+    /*
+    Usando o replace(), faça a string "Roberto" virar "Roberta".
+    Mostre o resultado no console.
+    */
+
+    var rob = "Roberto"; 
+
+    console.log( '\nEra "Roberto", agora é:' );
+    // ?
+
+    console.log(rob.replace('to', 'ta'));
+    console.log(rob.substring(0, 4) + rob.substring(4).replace('o', 'a'));
+
+
+    /*
+    Mostre no console a parte "nando" da string "Fernando". Use o método que
+    faz a busca do final para o início da string.
+    */
+    console.log( '\nParte de uma string:' );
+    // ?
+    console.log('Fernando'.substring(8, 3));
+
+    /*
+    Declare uma variável chamada `myName`, que receba o seu primeiro nome,
+    escrito de forma natural.
+    Mostre no console esse nome, mas com as letras intercalando entre maiúsculas
+    e minúsculas.
+    - Detalhe: o código abaixo deve funcionar da mesma forma para qualquer nome,
+    de qualquer tamanho, escrito de qualquer forma.
+    Ex.: Nomes que deveriam funcionar: "Fernando", "RoBertO", "gabriEla", etc.
+    */
+    console.log( '\nNome com letras intercaladas entre caixa alta e baixa:' );
+    // ?
+    var myName = "Ana Carolina Barreto";
+
+    var orkut = myName.split(' ').map(function(item) {
+        return item.split('').reduce(function(accumulator, current, index){
+            if (index % 2 == 0) {
+                current = current.toUpperCase();
+            } else {
+                current = current.toLowerCase();
+            }
+            return accumulator + current;
+        }, '');
+    }).join(' ');
+
+    console.log(orkut);
 
 }) ();
