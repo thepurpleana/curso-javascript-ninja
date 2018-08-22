@@ -5,7 +5,7 @@
 */
 
 (function(){
-        'use strict';
+    'use strict';
 
     /*
     Alguns detalhes importantes que faltou falar na aula:
@@ -102,10 +102,10 @@
         return classTest.test(markup);
     }
 
-    var classesCSS = ['container', 'text', 'date', 'excerpt', 'main', 'bubbles', 'trigger']; 
+    var classesCSS = ['container', 'text', 'date', 'excerpt', 'main', 'bubbles', 'trigger'];
 
     classesCSS.forEach( function(cssClass) {
-        console.log(hasClass(markup, cssClass) + " para a classe " + cssClass); 
+        console.log(hasClass(markup, cssClass) + " para a classe " + cssClass);
     });
 
 })();

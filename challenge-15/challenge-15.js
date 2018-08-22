@@ -4,7 +4,7 @@ Crie um arquivo chamado index.html e adicione esse script ao HTML.
 */
 
 (function(){
-
+  'use strict';
   /*
   Crie uma função construtora chamada "Person". Esse construtor deve ter
   as seguintes características:
@@ -26,7 +26,7 @@ Crie um arquivo chamado index.html e adicione esse script ao HTML.
   // ?
   function Person(name, lastName, age) {
 
-    this.name = name; 
+    this.name = name;
     this.lastName = lastName;
     this.age = age;
 

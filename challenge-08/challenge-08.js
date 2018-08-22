@@ -1,10 +1,12 @@
+( function(){
+  'use strict';
 /*
 Declare uma variável chamada `sum` e atribua a ela uma função chamada
 `calculateSum`. A função deve receber dois parâmetros e retornar a soma
 desses parâmetros.
 */
 // ?
-var sum = function sum(a, b) { 
+var sum = function sum(a, b) {
   return a + b;
 };
 /*
@@ -13,8 +15,8 @@ o resultado no console, com a frase:
 "A soma de [VALOR 1] e [VALOR2] é igual a [RESULTADO]."
 */
 // ?
-var a = 12, b = 13; 
-console.log("A soma de " + a + " e " + b + " é igual a " + sum(a,b) + "."); 
+var a = 12, b = 13;
+console.log("A soma de " + a + " e " + b + " é igual a " + sum(a,b) + ".");
 
 /*
 Mostre no console o nome da função criada acima, com a frase:
@@ -39,7 +41,7 @@ Declare uma variável chamada `varShowName` que recebe a função criada acima.
 */
 // ?
 
-var varShowName = showName; 
+var varShowName = showName;
 
 /*
 Usando a variável criada acima, mostre no console o nome e o retorno da função
@@ -68,27 +70,27 @@ function calculator(operator) {
   switch(operator) {
     case '+':
       return function(a, b) {
-        return "Resultado da operação: " + a + " " + operator + " " + b + " = " + (a+b); 
+        return "Resultado da operação: " + a + " " + operator + " " + b + " = " + (a+b);
       }
       break;
     case '-':
       return function(a, b) {
-        return "Resultado da operação: " + a + " " + operator + " " + b + " = " + a-b; 
+        return "Resultado da operação: " + a + " " + operator + " " + b + " = " + a-b;
       }
       break;
     case '/':
       return function(a, b) {
-        return "Resultado da operação: " + a + " " + operator + " " + b + " = " + a/b; 
+        return "Resultado da operação: " + a + " " + operator + " " + b + " = " + a/b;
       }
     case '*':
       return function(a, b) {
-        return "Resultado da operação: " + a + " " + operator + " " + b + " = " + a*b; 
+        return "Resultado da operação: " + a + " " + operator + " " + b + " = " + a*b;
       }
-    case '%': 
+    case '%':
       return function(a,b) {
         return "Resultado da operação: " + a + " " + operator + " " + b + " = " + a%b;
       }
-    default: 
+    default:
       "Operação Inválida"
       break;
   }
@@ -116,7 +118,7 @@ correto por parâmetro para cada uma delas.
 */
 // ?
 
-var subtraction = calculator('-'); 
+var subtraction = calculator('-');
 var multiplication = calculator('*');
 var division = calculator('/');
 var mod = calculator('%');
@@ -131,3 +133,5 @@ console.log(subtraction(3,5));
 console.log(multiplication(3,5));
 console.log(division(3,5));
 console.log(mod(3,5));
+
+})();

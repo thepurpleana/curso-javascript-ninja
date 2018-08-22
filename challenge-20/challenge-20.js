@@ -9,7 +9,7 @@ O HTML NÃO PODE ser alterado!
 */
 
 (function(win, doc){
-    'use strict'; 
+    'use strict';
 
 /*
 Ao carregar a página, pergunte ao usuário "Qual o seu nome?". Atribua o
@@ -76,7 +76,7 @@ entrados pelo usuário.
 */
 // ?
 $inputUsername.value = username;
-$inputEmail.value = email; 
+$inputEmail.value = email;
 
 /*
 Adicione um listener de evento de click ao botão que faça o seguinte:
@@ -92,7 +92,7 @@ Adicione um listener de evento de click ao botão que faça o seguinte:
     - "Entre com um e-mail válido!"
 
 
-    
+
 2. Para verificar se o e-mail é válido use a função `isValidEmail`, passando
 o e-mail que foi entrado no campo de "Email" por parâmetro. (A função
 `isValidEmail` será criada logo abaixo).
@@ -107,24 +107,19 @@ Caso contrário, mostre um alerta com a mensagem:
 // ?
 
 $button.addEventListener('click', function(event) {
-    event.preventDefault(); 
+    event.preventDefault();
     if ($inputUsername.value == 'Desconhecido') {
         return alert("Preencha o nome do usuário!");
-  
-    } 
+    }
     if (!isValidEmail($inputEmail.value)) {
         return alert("Preencha o e-mail corretamente!");
-
     }
     if (!$message.value) {
         return alert("Preencha a mensagem!");
-        
     }
-
     if (confirm("Tem certeza que deseja enviar o formulário?"))
-            return alert("Enviado com sucesso!"); 
-        return alert("Não enviado.");
-
+      return alert("Enviado com sucesso!");
+    return alert("Não enviado.");
 }, false);
 
 
@@ -157,7 +152,7 @@ Alguns e-mails inválidos:
 */
 // ?
 
-function isValidEmail(email) { 
+function isValidEmail(email) {
     var emailRegex = /^[\w\_\+\.]+@[\w_]+(\.)\w{2,}(\.\w{2})?/i;
     return emailRegex.test(email);
 };
