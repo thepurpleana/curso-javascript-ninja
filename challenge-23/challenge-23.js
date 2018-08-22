@@ -25,69 +25,98 @@ input;
 - Ao pressionar o botão "CE", o input deve ficar zerado. -ok
 */
 
+//NOT WORKING FOR FLOAT NUMBERS
+
 (function(win, doc){
   'use strict';
 
   var $visor = doc.querySelector('[data-js="visor"]');
-  var $clear = doc.querySelector('[data-js="ce-button"]');
-  var $result = doc.querySelector('[data-js="result-button"]');
-  var $number = doc.querySelectorAll('[data-js="number-button"]');
-  var $operation = doc.querySelectorAll('[data-js="operation-button"]');
+  var $buttonClear = doc.querySelector('[data-js="ce-button"]');
+  var $buttonEquals = doc.querySelector('[data-js="equals-button"]');
+  var $buttonNumbers = doc.querySelectorAll('[data-js="number-button"]');
+  var $buttonOperators = doc.querySelectorAll('[data-js="operation-button"]');
 
-  resetVisor();
+  function initialize() {
+    //initVariables();
+    initEvents();
 
-  $clear.addEventListener('click', function(){
-    resetVisor();
-  });
+  }
 
-  $result.addEventListener('click', function(){
-    $visor.value = calculateResult($visor.value);
-  });
+  function initEvents() {
+    $buttonClear.addEventListener('click', handleClickClear, false);
+    $buttonEquals.addEventListener('click', handleClickEquals, false);
+    $buttonNumbers.forEach(function(number) {
+      number.addEventListener('click', handleClickNumber, false)
+    });
+    $buttonOperators.forEach(function(operator) {
+      operator.addEventListener('click', handleClickOperation, false)
+    });
+  }
 
-  $number.forEach(function(number) {
-    number.addEventListener('click', function() {
-      updateVisor(number.value);
-    })
-  });
+  function handleClickNumber() {
+    removeIfZero();
+    updateVisor(clickValue);
+  }
 
-  $operation.forEach(function(operator) {
-    operator.addEventListener('click', function() {
-      updateVisor(operator.value);
-    })
-  });
+  function handleClickOperation() {
+    removeIfOperator();
+    updateVisor(clickValue);
+  }
 
-  function updateVisor(info) {
-    if ($visor.value == 0) {
-     $visor.value = info
-    }
-    else if (info.match(/\D$/) && $visor.value.match(/\D$/)) {
-      $visor.value = $visor.value.replace(/\D$/, info);
-    } else {
-      $visor.value += info;
-    }
-  };
-
-  function resetVisor() {
+  function handleClickClear() {
     $visor.value = 0;
   }
 
-  function calculateResult(value) {
-   /* value = value.match(/(\d+)(\D)(\d+)$/);
-    return calculator(value[2])(value[1], value[3]);
-    */
-
-    var numbers = value.split(/\D/g);
-    var operations = value.split(/\d+/g);
-
-    return numbers.reduce(function(accumulator, current, index){
-      console.log(operations[index], accumulator, current)
-      return calculator(operations[index])(accumulator, current);
-    });
-
-    console.log(numbers, operations);
+  function handleClickEquals() {
+    $visor.value = calculateOperation($visor.value);
   };
 
-  function calculator(operator) {
+
+  function revomeIfZero(clickValue) {
+    if (isVisorEmpty()){
+      $visor.value = removeLastItem($visor.value);
+    }
+
+  };
+
+  function removeIfOperator() {
+    if(isLastItemAnOperator($visor.value)) {
+      $visor.value = removeLastItem($visor.value)
+    }
+  }
+
+  function updateVisor(value) {
+    $visor.value += value;
+  }
+
+  function isVisorEmpty() {
+    if ($visor.value == 0) {
+      return true;
+     }
+     return false;
+  }
+
+  function isLastItemAnOperator(string) {
+    if (string.match(/\D$/)) {
+      return true;
+    }
+    return false;
+  }
+
+  function removeLastItem(string) {
+    return string.slice(0, -1);
+  }
+
+  function calculateOperation(string) {
+    var numbers = string.split(/\D/g);
+    var operations = string.split(/\d+/g);
+
+    return numbers.reduce(function(accumulator, current, index){
+      return calculate(operations[index])(accumulator, current);
+    });
+  }
+
+  function calculate(operator) {
     switch(operator) {
       case '+':
         return function(a, b) {
@@ -108,11 +137,11 @@ input;
           return a*b;
         }
       default:
-        "Operação Inválida"
+        return "Operação Inválida"
         break;
     }
-
   }
 
+  initialize();
 
 })(window, document);
