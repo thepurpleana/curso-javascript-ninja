@@ -4,12 +4,14 @@
 (function(win, doc){
   'use strict';
 
+  //MARK: - Properties
   var $visor = doc.querySelector('[data-js="visor"]');
   var $buttonClear = doc.querySelector('[data-js="ce-button"]');
   var $buttonEquals = doc.querySelector('[data-js="equals-button"]');
   var $buttonNumbers = doc.querySelectorAll('[data-js="number-button"]');
   var $buttonOperators = doc.querySelectorAll('[data-js="operation-button"]');
 
+  //MARK: - Initializers
   function initialize() {
     initEvents();
   }
@@ -25,12 +27,13 @@
     }));
   }
 
+  //MARK: - Event Handlers
   function handleClickNumber() {
-    updateVisor(removeIfZero() + this.value);
+    updateVisor(removeIf(isVisorEmpty) + this.value);
   }
 
   function handleClickOperation() {
-    updateVisor(removeIfOperator() + this.value);
+    updateVisor(removeIf(isLastItemAnOperator) + this.value);
   }
 
   function handleClickClear() {
@@ -41,18 +44,13 @@
     updateVisor(calculateResults($visor.value));
   }
 
+  //MARK: - Visor Update and Verifying functions
   function updateVisor(value) {
     $visor.value = value;
   }
 
-  function removeIfZero(){
-    if (isVisorEmpty())
-      return removeLastItem($visor.value);
-    return $visor.value;
-  }
-
-  function removeIfOperator() {
-    if(isLastItemAnOperator())
+  function removeIf(condition){
+    if (condition())
       return removeLastItem($visor.value);
     return $visor.value;
   }
@@ -62,17 +60,14 @@
   }
 
   function isVisorEmpty() {
-    if ($visor.value == 0)
-      return true;
-    return false;
+    return ($visor.value == 0);
   }
 
   function isLastItemAnOperator() {
-    if ($visor.value.match(/\D$/))
-      return true;
-    return false;
+    return ($visor.value.match(/\D$/));
   }
 
+  //MARK: - calculating functions
   function calculateResults(string) {
     var numbers = string.split(/\D/g);
     var operations = string.split(/\d+/g);
