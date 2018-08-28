@@ -19,85 +19,9 @@
   adicionar as informações em tela.
   */
 
-(function(doc){
+(function(DOM, doc){
   'use strict';
 
-   //MARK: - DOM library
-
-   function DOM(string) {
-    this.element = document.querySelectorAll(string);
-  }
-
-  DOM.prototype.on = function on(type, callbackFunction) {
-    Array.prototype.forEach.call(this.element, function(element){
-      element.addEventListener(type, callbackFunction)
-    });
-  }
-
-  DOM.prototype.off = function off() {
-    Array.prototype.forEach.call(this.element, function(element){
-      element.removeEventListener()
-    });
-  }
-  DOM.prototype.get = function get() {
-    return this.element;
-  }
-
-  DOM.prototype.isArray = function isArray(element) {
-    return Object.prototype.toString.call(element) === '[object Array]';
-  };
-
-  DOM.prototype.isObject = function isObject(element) {
-    return Object.prototype.toString.call(element) === '[object Object]';
-  };
-
-  DOM.prototype.isFunction = function isFunction(element) {
-    return Object.prototype.toString.call(element) === '[object Function]';
-  };
-
-  DOM.prototype.isNumber = function isNumber(element) {
-    return Object.prototype.toString.call(element) === '[object Number]';
-  };
-
-  DOM.prototype.isString = function isString(element) {
-    return Object.prototype.toString.call(element) === '[object String]';
-  };
-
-  DOM.prototype.isBoolean = function isBoolean(element) {
-    return Object.prototype.toString.call(element) === '[object Boolean]';
-  };
-
-  DOM.prototype.isNull = function isNull(element) {
-    return Object.prototype.toString.call(element) === '[object Null]' || Object.prototype.toString.call(element) === '[object Undefined]';;
-  };
-
-  DOM.prototype.forEach = function forEach() {
-    return Array.prototype.forEach.apply(this.element, arguments)
-  };
-
-  DOM.prototype.map = function map() {
-    return Array.prototype.map.apply(this.element, arguments)
-  };
-
-  DOM.prototype.filter = function filter() {
-    return Array.prototype.filter.apply(this.element, arguments)
-  };
-
-  DOM.prototype.reduce = function reduce() {
-    return Array.prototype.reduce.apply(this.element, arguments)
-  };
-
-  DOM.prototype.reduceRight = function reduceRight() {
-    return Array.prototype.reduceRight.apply(this.element, arguments)
-  };
-
-  DOM.prototype.every = function every() {
-    return Array.prototype.every.apply(this.element, arguments)
-  };
-
-  DOM.prototype.some = function some() {
-    return Array.prototype.some.apply(this.element, arguments)
-  };
 
   //MARK: - Properties
   var $form = new DOM('[data-js="cep-form"]');
@@ -105,53 +29,45 @@
   var $requestStatus = new DOM('[data-js="request-status"]');
   var ajax = new XMLHttpRequest();
 
+  //MARK: - Input Handler
+
   $form.on('submit', handleClickSubmit);
 
-  function isValidLength() {
-    return (getCEP().length == 8);
-  }
-
   function handleClickSubmit() {
-
-
     event.preventDefault();
     requestAdress();
-    // if (isValidLength()) {
-    //   requestAdress();
-    // } else {
-    //   updateStatusInformation('notvalid');
-    // }
+  };
 
-  }
+  function getURL() {
+      return 'http://apps.widenet.com.br/busca-cep/api/cep/' + getCEP() + '.json/';
+  };
 
-  //TODO: error handling
-  //TODO: center search box and animate it going up
+  function getCEP() {
+    return $cep.get()[0].value.match(/\d+/g).join('');
+  };
+
+  //MARK: - Request
+
   function requestAdress() {
       var url = getURL($cep.get()[0].value)
       updateStatusInformation('loading');
       ajax.open('GET', url);
       ajax.send();
       ajax.addEventListener('readystatechange', handleReadyStateChange, false);
-  }
+  };
 
   function handleReadyStateChange() {
     console.log(ajax.readyState, ajax.status);
     if (isRequestSuccessfull()) {
      updateCEPInformation();
     }
-  }
+  };
 
   function isRequestSuccessfull() {
     return (ajax.readyState === 4 && ajax.status === 200);
-  }
+  };
 
-  function getURL() {
-      return 'http://apps.widenet.com.br/busca-cep/api/cep/' + getCEP() + '.json/';
-  }
-
-  function getCEP() {
-    return $cep.get()[0].value.match(/\d+/g).join('');
-  }
+  //MARK: - update site information
 
   function updateCEPInformation() {
     var data = parseData();
@@ -159,7 +75,7 @@
       console.log('error', data);
       updateStatusInformation('error');
       return;
-    }
+    };
 
     updateStatusInformation('success');
     console.log(data);
@@ -169,7 +85,7 @@
     $infoLabel.get()[2].textContent = data.district;
     $infoLabel.get()[3].textContent = data.city;
     $infoLabel.get()[4].textContent = data.state;
-  }
+  };
 
   function parseData() {
     var result;
@@ -179,7 +95,7 @@
       result = null;
     }
     return result;
-  }
+  };
 
   function updateStatusInformation(type){
      var message = {
@@ -189,11 +105,11 @@
       error: "Não encontramos o endereço para o CEP.",
     };
     $requestStatus.get()[0].textContent = message[type]
-  }
+  };
 
 
 
-})(document);
+})(window.DOM, document);
 
 
 /*
