@@ -28,6 +28,8 @@
   var $cep = new DOM('[data-js="cep-input"]');
   var $requestStatus = new DOM('[data-js="request-status"]');
   var ajax = new XMLHttpRequest();
+  var $infoLabel = new DOM('[data-js="cep-info"]');
+
 
   //MARK: - Input Handler
 
@@ -67,25 +69,21 @@
     return (ajax.readyState === 4 && ajax.status === 200);
   };
 
-  //MARK: - update site information
+  //MARK: - update information
 
   function updateCEPInformation() {
     var data = parseData();
     if(data.status == 0) {
-      console.log('error', data);
-      updateStatusInformation('error');
+      handleRequestError(data);
       return;
     };
-
-    updateStatusInformation('success');
-    console.log(data);
-    var $infoLabel = new DOM('[data-js="cep-info"]');
-    $infoLabel.get()[0].textContent = data.code;
-    $infoLabel.get()[1].textContent = data.address;
-    $infoLabel.get()[2].textContent = data.district;
-    $infoLabel.get()[3].textContent = data.city;
-    $infoLabel.get()[4].textContent = data.state;
+    updateSiteInformation(data);
   };
+
+  function handleRequestError(data) {
+    console.log('error', data);
+    updateStatusInformation('error');
+  }
 
   function parseData() {
     var result;
@@ -96,6 +94,17 @@
     }
     return result;
   };
+
+
+  function updateSiteInformation(data) {
+    updateStatusInformation('success');
+    console.log(data);
+    $infoLabel.get()[0].textContent = data.code;
+    $infoLabel.get()[1].textContent = data.address;
+    $infoLabel.get()[2].textContent = data.district;
+    $infoLabel.get()[3].textContent = data.city;
+    $infoLabel.get()[4].textContent = data.state;
+  }
 
   function updateStatusInformation(type){
      var message = {
