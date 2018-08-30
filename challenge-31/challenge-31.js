@@ -12,3 +12,44 @@ do curso, para colar o link do pull request do seu repo.
 */
 
 console.log('Link do pull request do seu projeto');
+
+
+
+//revealing module pattern
+//window.app = app; - como função
+//window.app = app(); - como objeto
+
+//closure
+
+//classList.contains();
+//.toggle()
+//.remove()
+//.innerHTML
+
+//sempre tratar entrada do usuario
+
+//insertAdjacentHTML(posicao, text); 
+//beforebegin, afterbegin, beforeend, afterend
+
+//element.outerHTML - representaçao em string daquele objeto html
+
+
+//Math.abs = always positivo
+//Math.ceil(x) = arredonda pra cima
+//Math.floor(x) = arredonda pra baixo
+//Math.round(x) = arredonda .49 pra baixo, .50 pra cima
+//Math.random()
+//Math.max() - maior valor e .min() - menor valor
+
+//Requisicao
+// ajax = XMLHttpRequest()
+// ajax.open('GET', url);
+// ajax.send();
+// 'readystatechange'
+// ajax.readyState
+// ajax.status
+
+// ajax.responseText 
+// ajax.responseXML
+
+
