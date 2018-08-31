@@ -1,4 +1,4 @@
-(function() {
+(function(DOM) {
   'use strict';
 
   /*
@@ -36,4 +36,42 @@
   que será nomeado de "app".
   */
 
-})();
+  function app() {
+    //TODO: puxar do json
+    var $form = new DOM('[data-js="car-form"]');
+    var $inputElements = new DOM('[data-js="text-input"]');
+    var $tableCell = new DOM('[data-js="table-cell"]');
+    var $table = new DOM('[data-js="table"]');
+
+    $form.on('submit', handleFormSubmit);
+
+    function handleFormSubmit() {
+      event.preventDefault();
+      var cellHtml = $tableCell.get()[0].cloneNode(true);
+
+
+      $inputElements.forEach(function(element, index){
+        if (index === 0) {
+          cellHtml.children[index].setAttribute('src', element.value);
+        } else {
+          cellHtml.children[index].textContent = element.value;
+        }
+      });
+
+      $table.get()[0].appendChild(cellHtml);
+      console.log($inputElements, cellHtml.children);
+
+    }
+
+  }
+
+  app();
+
+
+//revealing module pattern
+//window.app = app; - como função
+//window.app = app(); - como objeto
+
+//closure
+
+})(window.DOM);

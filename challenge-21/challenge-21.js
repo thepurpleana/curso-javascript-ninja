@@ -15,3 +15,64 @@ usar o nome que achar melhor, desde que ele seja semântico, ou seja, o nome
 dado ao elemento HTML deve definir o que o elemento é ou o que ele faz.
 */
 // ?
+
+(function(){
+    'use strict';
+
+    var $startButton = document.querySelector('button[data-js="startButton"]')
+    var $pauseButton = document.querySelector('button[data-js="pauseButton"]')
+    var $resetButton = document.querySelector('button[data-js="resetButton"]')
+    var $timerLabel = document.querySelector('[data-js="timerLabel"]');
+    var timer;
+    var value = {minutes: 25, seconds: 0};
+
+
+
+    $startButton.addEventListener('click', function() {
+        timer = pomodoro();
+        console.log(value);
+    }, false);
+
+    $pauseButton.addEventListener('click', function(){
+      clearTimeout(timer);
+      console.log(value);
+    })
+
+    $resetButton.addEventListener('click', function(){
+        //zerar label
+        $timerLabel.innerHTML = "25:00"
+        length = {minutes: 25, seconds: 0}
+        clearTimeout(timer);
+    })
+
+
+    function pomodoro() {
+        updateTimerLabel(value);
+        if (value.minutes == 0 && value.seconds == 0) {
+            return;
+        }
+        if (value.seconds == 0) {
+            value.minutes--;
+            value.seconds = 60
+        }
+        value.seconds--;
+
+        timer = setTimeout(function(){pomodoro()}, 1000);
+    }
+
+    function updateTimerLabel(value) {
+        var label = '';
+
+        if (value.minutes < 10) label = "0";
+        label = label + value.minutes + ":";
+
+        if (value.seconds < 10) label += "0";
+        label += value.seconds;
+
+        $timerLabel.innerHTML = label;
+    }
+
+
+
+
+})();

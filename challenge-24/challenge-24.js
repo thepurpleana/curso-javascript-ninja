@@ -1,75 +1,98 @@
-/*
-Nossa calculadora agora está funcional! A ideia desse desafio é modularizar
-o código, conforme vimos na aula anterior. Quebrar as responsabilidades
-em funções, onde cada função faça somente uma única coisa, e faça bem feito.
+//NOT WORKING FOR FLOAT NUMBERS
+//use prototype for array like elements that might not work in different browsers
 
-- Remova as duplicações de código;
-- agrupe os códigos que estão soltos em funções (declarações de variáveis,
-listeners de eventos, etc);
-- faça refactories para melhorar esse código, mas de forma que o mantenha com a
-mesma funcionalidade.
-*/
+(function(win, doc){
+  'use strict';
 
-var $visor = document.querySelector('[data-js="visor"]');
-var $buttonsNumbers = document.querySelectorAll('[data-js="button-number"]');
-var $buttonsOperations = document.querySelectorAll('[data-js="button-operation"]');
-var $buttonCE = document.querySelector('[data-js="button-ce"]');
-var $buttonEqual = document.querySelector('[data-js="button-equal"]');
+  //MARK: - Properties
+  var $visor = doc.querySelector('[data-js="visor"]');
+  var $buttonClear = doc.querySelector('[data-js="ce-button"]');
+  var $buttonEquals = doc.querySelector('[data-js="equals-button"]');
+  var $buttonNumbers = doc.querySelectorAll('[data-js="number-button"]');
+  var $buttonOperators = doc.querySelectorAll('[data-js="operation-button"]');
 
-Array.prototype.forEach.call($buttonsNumbers, function(button) {
-  button.addEventListener('click', handleClickNumber, false);
-});
-Array.prototype.forEach.call($buttonsOperations, function(button) {
-  button.addEventListener('click', handleClickOperation, false);
-});
-$buttonCE.addEventListener('click', handleClickCE, false);
-$buttonEqual.addEventListener('click', handleClickEqual, false);
-
-function handleClickNumber() {
-  $visor.value += this.value;
-}
-
-function handleClickOperation() {
-  $visor.value = removeLastItemIfItIsAnOperator($visor.value);
-  $visor.value += this.value;
-}
-
-function handleClickCE() {
-  $visor.value = 0;
-}
-
-function isLastItemAnOperation(number) {
-  var operations = ['+', '-', 'x', '÷'];
-  var lastItem = number.split('').pop();
-  return operations.some(function(operator) {
-    return operator === lastItem;
-  });
-}
-
-function removeLastItemIfItIsAnOperator(number) {
-  if(isLastItemAnOperation(number)) {
-    return number.slice(0, -1);
+  //MARK: - Initializers
+  function initialize() {
+    initEvents();
   }
-  return number;
-}
 
-function handleClickEqual() {
-  $visor.value = removeLastItemIfItIsAnOperator($visor.value);
-  var allValues = $visor.value.match(/\d+[+x÷-]?/g);
-  $visor.value = allValues.reduce(function(accumulated, actual) {
-    var firstValue = accumulated.slice(0, -1);
-    var operator = accumulated.split('').pop();
-    var lastValue = removeLastItemIfItIsAnOperator(actual);
-    var lastOperator = isLastItemAnOperation(actual) ? actual.split('').pop() : '';
+  function initEvents() {
+    $buttonClear.addEventListener('click', handleClickClear, false);
+    $buttonEquals.addEventListener('click', handleClickEquals, false);
+    Array.prototype.forEach.call($buttonNumbers, (function(number) {
+      number.addEventListener('click', handleClickNumber, false)
+    }));
+    Array.prototype.forEach.call($buttonOperators, (function(operator) {
+      operator.addEventListener('click', handleClickOperation, false)
+    }));
+  }
+
+  //MARK: - Event Handlers
+  function handleClickNumber() {
+    updateVisor(removeIf(isVisorEmpty) + this.value);
+  }
+
+  function handleClickOperation() {
+    updateVisor(removeIf(isLastItemAnOperator) + this.value);
+  }
+
+  function handleClickClear() {
+    updateVisor(0);
+  }
+
+  function handleClickEquals() {
+    updateVisor(calculateResults($visor.value));
+  }
+
+  //MARK: - Visor Update and Verifying functions
+  function updateVisor(value) {
+    $visor.value = value;
+  }
+
+  function removeIf(condition){
+    if (condition())
+      return removeLastItem($visor.value);
+    return $visor.value;
+  }
+
+  function removeLastItem(string) {
+    return string.slice(0,-1);
+  }
+
+  function isVisorEmpty() {
+    return ($visor.value == 0);
+  }
+
+  function isLastItemAnOperator() {
+    return ($visor.value.match(/\D$/));
+  }
+
+  //MARK: - calculating functions
+  function calculateResults(string) {
+    var numbers = string.split(/\D/g);
+    var operations = string.split(/\d+/g);
+
+    return numbers.reduce(function(accumulator, current, index){
+      return calculate(operations[index], accumulator, current);
+    });
+  }
+
+  function calculate(operator, a, b) {
     switch(operator) {
       case '+':
-        return ( Number(firstValue) + Number(lastValue) ) + lastOperator;
+        return a+b;
       case '-':
-        return ( Number(firstValue) - Number(lastValue) ) + lastOperator;
-      case 'x':
-        return ( Number(firstValue) * Number(lastValue) ) + lastOperator;
+        return a-b;
       case '÷':
-        return ( Number(firstValue) / Number(lastValue) ) + lastOperator;
+        return a/b;
+      case 'x':
+        return a*b;
+      default:
+        console.log("De alguma maneira, a calculadora enviou um valor que não está presente como botão")
+        return "Operação Inválida"
     }
-  });
-}
+  }
+
+  initialize();
+
+})(window, document);

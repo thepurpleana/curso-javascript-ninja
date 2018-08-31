@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>JSNinja: Challenge 28</title>
+  <link href="https://fonts.googleapis.com/css?family=Lato|Oswald:600" rel="stylesheet">
+  <style>
+    body{
+      margin: auto;
+      text-align: center;
+      background: #EEEEEE;
+    }
+
+    main {
+      padding: 15vh 15vw 50px 15vw;
+    }
+
+    p {
+      text-transform: uppercase;
+      font-family: 'Lato', sans-serif;
+      font-size: 25px;
+      padding: 0px;
+      margin:0;
+      color: #1C1C1C;
+    }
+
+    h3 {
+      font-size: 15px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      font-family: 'Oswald', sans-serif;
+      color: #185A72;
+      padding-bottom: 0px;
+      margin-bottom:0;
+    }
+
+    input{
+      color: #1C1C1C;
+      width: 300px;
+      height: 30px;
+      font-size: 20px;
+      padding:0;
+      margin: 0;
+    }
+    button {
+      background: #5C9EAD;
+      height: 30px;
+      padding: 10px;
+      margin: 0;
+      color: #EEEEEE;
+    }
+
+    footer{
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #1C1C1C;
+      padding: 10px;
+      color: #EEEEEE;
+    }
+  </style>
+</head>
+<body>
+
+  <form data-js="cep-form">
+    <input type="text" data-js="cep-input">
+    <button type="submit" data-js="submit-button"> consultar </button>
+  </form>
+
+  <main id="info">
+    <h3> CEP </h3>
+    <p data-js="cep-info">aaAAaaAaaAaAAAA</p>
+    <h3> Logradouro </h3>
+    <p data-js="cep-info">aaAAa aaaaaa aaaaaAsaa aaa aaaaasasasass aaaaa aaaa AaAAAA</p>
+    <h3> Bairro </h3>
+    <p data-js="cep-info">aaAAaaAaaaaaa aAaAAAA</p>
+    <h3> Cidade </h3>
+    <p data-js="cep-info">aaAA aaaaaaaAaaAaAAAA</p>
+    <h3> Estado </h3>
+    <p data-js="cep-info">aaAAaaAa aAaAAAA</p>
+
+  </main>
+
+  <footer data-js="request-status"> Waiting. </footer>
+
+  <script src="libraryDOM.js"></script>
+  <script src="challenge-28.js"></script>
+</body>
+</html>
